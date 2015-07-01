@@ -2,8 +2,7 @@ angular.module('Eggly', [
 
 ])
     .controller('MainCtrl', function ($scope) {
-        
-    	$scope.categories = [
+        $scope.categories = [
             {"id": 0, "name": "Development"},
             {"id": 1, "name": "Design"},
             {"id": 2, "name": "Exercise"},
@@ -21,18 +20,61 @@ angular.module('Eggly', [
             {"id": 7, "title": "Wimp", "url": "http://wimp.com", "category": "Humor" },
             {"id": 8, "title": "Dump", "url": "http://dump.com", "category": "Humor" }
         ];
-        
+
+        $scope.isCreating = false;
+        $scope.isEditing = false;
         $scope.currentCategory = null;
 
-        function setCurrentCategory(category){
-        	$scope.currentCategory = category;
+        function isCurrentCategory(category) {
+            return $scope.currentCategory !== null && category.name === $scope.currentCategory.name;
         }
 
-        function isCurrentCategory(category){
-        	return $scope.currentCategory !== null && category.name === $scope.currentCategory.name;
+        function setCurrentCategory(category) {
+            $scope.currentCategory = category;
+
+            cancelCreating();
+            cancelEditing();
         }
 
-        $scope.setCurrentCategory = setCurrentCategory;
         $scope.isCurrentCategory = isCurrentCategory;
+        $scope.setCurrentCategory = setCurrentCategory;
+
+        //-------------------------------------------------------------------------------------------------
+        // CREATING AND EDITING STATES
+        //-------------------------------------------------------------------------------------------------
+        function shouldShowCreating() {
+            return $scope.currentCategory && !$scope.isEditing;
+        }
+
+        function startCreating() {
+            $scope.isCreating = true;
+            $scope.isEditing = false;
+        }
+
+        function cancelCreating() {
+            $scope.isCreating = false;
+        }
+
+        $scope.shouldShowCreating = shouldShowCreating;
+        $scope.startCreating = startCreating;
+        $scope.cancelCreating = cancelCreating;
+
+        function shouldShowEditing() {
+            return $scope.isEditing && !$scope.isCreating;
+        }
+
+        function startEditing() {
+            $scope.isCreating = false;
+            $scope.isEditing = true;
+        }
+
+        function cancelEditing() {
+            $scope.isEditing = false;
+            $scope.editedBookmark = null;
+        }
+
+        $scope.startEditing = startEditing;
+        $scope.cancelEditing = cancelEditing;
+        $scope.shouldShowEditing = shouldShowEditing;
     })
 ;
