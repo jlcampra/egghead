@@ -71,7 +71,7 @@ angular.module('Eggly', [
 
         function updateBookmark(bookmark) {
             var index = _.findIndex($scope.bookmarks, function (b) {
-                return b.id == bookmark.id;
+                return b.id == bookmark;
             });
 
             $scope.bookmarks[index] = bookmark;
@@ -84,6 +84,14 @@ angular.module('Eggly', [
         $scope.createBookmark = createBookmark;
         $scope.updateBookmark = updateBookmark;
         $scope.isSelectedBookmark = isSelectedBookmark;
+
+        function deleteBookmark(bookmark) {
+            _.remove($scope.bookmarks, function(b){
+                return b.id == bookmark;
+            });
+        }/*
+
+        $scope.deleteBookmark = deleteBookmark;*/
 
         //-------------------------------------------------------------------------------------------------
         // CREATING AND EDITING STATES

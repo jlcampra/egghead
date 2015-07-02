@@ -13,8 +13,8 @@
         <link rel="stylesheet" href="css/eggly.css">
          <link rel="stylesheet" href="css/animations.css"> 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <!--<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script> -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script> 
+        <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.min.js"></script> 
         
         <script src="app/eggly-app.start.js"></script>
     </head>
@@ -34,6 +34,7 @@
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                     <div ng-class="{active: isSelectedBookmark(bookmark.id)}" ng-repeat="bookmark in bookmarks | filter:{category:currentCategory.name}">
                         <button type="button" 
+                                ng-click="deleteBookmark(bookmark.id)"
                                 class="close">&times;</button>
                         <button type="button" 
                                 class="btn btn-link" 
@@ -84,7 +85,7 @@
 
                         <form class="edit-form" 
                                 role="form" 
-                                ng-submit="updateBookmark(bookmark)" novalidate>
+                                ng-submit="updateBookmark(bookmark.id)" novalidate>
                             <div class="form-group">
                                 <label>Bookmark Title</label>
                                 <input type="text" 
